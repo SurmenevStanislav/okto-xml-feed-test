@@ -1,91 +1,36 @@
+
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Шаблон XML-фида для интеграции учётной системы с Okto.
-  Формат — Kaspi (kaspi_catalog). Обязательные поля по каждому товару <offer>:
-    • sku       — артикул, атрибут <offer sku="...">
-    • название  — <model>
-    • наличие   — <availability available="yes|no" storeId="...">
-    • цена      — <price> (единая) ИЛИ <cityprices>/<cityprice cityId="..."> (по городам)
+<kaspi_catalog
+    date="2026-10-15"
+    xmlns="kaspiShopping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
 
-  Необязательные поля. Если поле не указано, в Okto оно не меняется:
-    • остаток    — атрибут stockCount у <availability>
-    • предзаказ  — атрибут preOrder у <availability>: число дней от 0 до 30.
-                   Чтобы снять предзаказ, укажите preOrder="0"
-    • мин. цена  — <min_price>: ниже неё робот цену не опустит
-    • макс. цена — <max_price>: выше неё робот цену не поднимет;
-                   её же он ставит, когда конкурентов нет
-    • шаг        — <step>: на сколько тенге робот ставит цену ниже конкурента
-    • робот      — <demping>: 1 — включить робота на товаре, 0 — выключить
-  <min_price>, <max_price>, <step> и <demping> внутри <offer> действуют на все города.
-  Свои значения для отдельного города — в блоке <cities>/<city id="...">.
-
-  Робот включается (<demping>1</demping>), только если у товара есть мин. цена,
-  макс. цена и шаг — в этом файле или уже заданные в Okto, товар в этом городе
-  продаётся и в пакете подписки есть свободное место. Если мин. цена, макс. цена
-  или шаг в файле указаны с ошибкой, робот не включится, пока их не исправят.
-
-  Как заполнять числа (цену, мин. и макс. цену, шаг): только целые, без точек-разделителей
-  и знака валюты — 15000, а не 15.000 и не 15000 тг. Цена, мин. и макс. цена — больше 0,
-  мин. цена не выше макс. Значение, записанное иначе, Okto пропустит и оставит прежнее.
-
-  Цена из фида применяется там, где робот на товаре выключен.
-  Мин. и макс. цена и шаг применяются всегда — по ним работает робот.
-  Предзаказ из фида не применяется, если в настройках робота выключен «Предзаказ»
-  или для товара настроен «Предзаказ при нулевом остатке».
-
-  Настройте свой XML по этому образцу и укажите ссылку на него
-  в «Настройки робота → Учётная система».
--->
-<kaspi_catalog date="2024-01-01"
-               xmlns="kaspiShopping"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
-
-  <company>Название вашей компании</company>
-  <merchantid>ВАШ_MERCHANT_ID</merchantid>
+  <company>Тестовый магазин</company>
+  <merchantid>11938000</merchantid>
 
   <offers>
-    <!-- Пример 1: единая цена и одни настройки робота для всех городов -->
-    <offer sku="ARTICUL-001">
-      <model>Пример товара 1</model>
-      <brand>Бренд</brand>                                <!-- необязательно -->
-      <availabilities>
-        <!-- storeId — код пункта выдачи (склада) из вашего кабинета Kaspi -->
-        <availability available="yes" storeId="PP1" stockCount="10"/>
-      </availabilities>
-      <price>15000</price>                                <!-- цена в тенге, целое число -->
-      <min_price>13000</min_price>                        <!-- мин. цена -->
-      <max_price>17000</max_price>                        <!-- макс. цена -->
-      <step>10</step>                                     <!-- шаг -->
-      <demping>1</demping>                                <!-- робот включён во всех городах -->
-    </offer>
+    <offer sku="380280725_792519993">
+      <model>Бутылка для воды спортивная 500 мл</model>
 
-    <!-- Пример 2: цены и настройки робота по городам, один пункт под заказ -->
-    <offer sku="ARTICUL-002">
-      <model>Пример товара 2</model>
-      <brand>Бренд</brand>
       <availabilities>
-        <availability available="yes" storeId="PP1" stockCount="5"/>
-        <availability available="yes" storeId="PP2" preOrder="7"/>   <!-- под заказ, 7 дней -->
-        <availability available="no" storeId="PP3"/>                 <!-- здесь не продаётся -->
+        <availability
+            available="no"
+            storeId="PP4"
+            stockCount="0"/>
+        <availability
+            available="no"
+            storeId="PP7"
+            stockCount="0"/>
       </availabilities>
-      <cityprices>
-        <cityprice cityId="710000000">18000</cityprice>   <!-- Астана -->
-        <cityprice cityId="750000000">17500</cityprice>   <!-- Алматы -->
-      </cityprices>
-      <step>5</step>                                      <!-- шаг для всех городов -->
-      <cities>
-        <city id="710000000">                             <!-- Астана -->
-          <min_price>16000</min_price>
-          <max_price>20000</max_price>
-          <demping>1</demping>                            <!-- в Астане робот включён -->
-        </city>
-        <city id="750000000">                             <!-- Алматы -->
-          <min_price>15500</min_price>
-          <max_price>19500</max_price>
-          <demping>0</demping>                            <!-- в Алматы выключен -->
-        </city>
-      </cities>
+
+      <price>999999</price>
+
+      <min_price>900000</min_price>
+      <max_price>999999</max_price>
+      <step>10</step>
+      <demping>0</demping>
     </offer>
   </offers>
+
 </kaspi_catalog>
