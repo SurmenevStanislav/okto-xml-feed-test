@@ -8,14 +8,14 @@ This XML file does not appear to have any style information associated with it. 
 <model>Бутылка для воды спортивная 500 мл</model>
 <!--  PP4 и PP7 взяты из тестового XML на GitHub, не из API магазина.  -->
 <availabilities>
-<availability available="no" storeId="PP4" stockCount="0"/>
+<availability available="yes" storeId="PP4" stockCount="1"/>
 <availability available="no" storeId="PP7" stockCount="0"/>
 </availabilities>
 <price>999999</price>
 <min_price>910000</min_price>
 <max_price>999999</max_price>
 <step>10</step>
-<demping>0</demping>
+<demping>1</demping>
 </offer>
 </offers>
 </kaspi_catalog>
